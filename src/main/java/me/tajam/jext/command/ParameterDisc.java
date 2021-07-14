@@ -24,7 +24,6 @@ class ParameterDisc extends Parameter {
     final Set<String> namespaces = ConfigDiscManager.getInstance().getNamespaces();
     final List<String> matches = new ArrayList<>();
     for (final String namespace : namespaces) {
-      if (matches.size() >= 8) break;
       if (namespace.toLowerCase().startsWith(parameter.toLowerCase())) {
         matches.add(namespace);
       }

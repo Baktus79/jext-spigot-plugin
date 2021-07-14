@@ -13,6 +13,10 @@ public class SpigotVersion {
     SpigotVersion.instance = this;
   }
 
+  public static boolean isVersion1_17() {
+    return instance.version.equals("1.17");
+  }
+
   public static boolean isVersion1_16() {
     return instance.version.equals("1.16");
   }

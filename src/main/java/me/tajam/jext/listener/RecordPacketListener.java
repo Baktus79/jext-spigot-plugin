@@ -61,7 +61,7 @@ class RecordPacketListener extends PacketAdapter {
         @Override
         public void run() {
           player.stopSound(DiscContainer.SOUND_MAP.get(container.getMaterial()), SoundCategory.RECORDS);
-          if (SpigotVersion.isVersion1_15() || SpigotVersion.isVersion1_16()) {
+          if (SpigotVersion.isVersion1_15() || SpigotVersion.isVersion1_16() || SpigotVersion.isVersion1_17()) {
             ActionBarDisplay_LT15(player, container);
           } else {
             ActionBarDisplay_ST14(player, container);
