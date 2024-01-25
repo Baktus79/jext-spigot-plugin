@@ -1,22 +1,23 @@
 package me.tajam.jext.disc;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
+import lombok.Getter;
+import me.tajam.jext.Log;
+import me.tajam.jext.config.ConfigDiscData;
+import me.tajam.jext.config.ConfigDiscData.Path;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import me.tajam.jext.Log;
-import me.tajam.jext.SpigotVersion;
-import me.tajam.jext.config.ConfigDiscData;
-import me.tajam.jext.config.ConfigDiscData.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
 
+@SuppressWarnings("deprecation")
 public class DiscContainer {
 
 	public static final HashMap<Material, Sound> SOUND_MAP;
+
 	static {
 		SOUND_MAP = new HashMap<>();
 		SOUND_MAP.put(Material.MUSIC_DISC_11, Sound.MUSIC_DISC_11);
@@ -31,19 +32,25 @@ public class DiscContainer {
 		SOUND_MAP.put(Material.MUSIC_DISC_STRAD, Sound.MUSIC_DISC_STRAD);
 		SOUND_MAP.put(Material.MUSIC_DISC_WAIT, Sound.MUSIC_DISC_WAIT);
 		SOUND_MAP.put(Material.MUSIC_DISC_WARD, Sound.MUSIC_DISC_WARD);
-		if (SpigotVersion.isVersion1_16() || SpigotVersion.isVersion1_17())
-			SOUND_MAP.put(Material.MUSIC_DISC_PIGSTEP, Sound.MUSIC_DISC_PIGSTEP);
+		SOUND_MAP.put(Material.MUSIC_DISC_PIGSTEP, Sound.MUSIC_DISC_PIGSTEP);
+		SOUND_MAP.put(Material.MUSIC_DISC_5, Sound.MUSIC_DISC_5);
+		SOUND_MAP.put(Material.MUSIC_DISC_OTHERSIDE, Sound.MUSIC_DISC_OTHERSIDE);
+		SOUND_MAP.put(Material.MUSIC_DISC_RELIC, Sound.MUSIC_DISC_RELIC);
 	}
 
 	private final HashMap<Integer, Material> DISC_MATERIAL = new HashMap<>();
 
-	private String title;
-	private String author;
-	private String namespaceID;
-	private int customModelData;
+	private final String title;
+	private final String namespaceID;
+	private final int customModelData;
 	private boolean creeperDrop;
-	private ArrayList<String> lores;
-	private Material material;
+	private final ArrayList<String> lores;
+
+	@Getter
+	private final Material material;
+	
+	@Getter
+	private final String author;
 
 	public DiscContainer(ConfigDiscData configDiscData) {
 		DISC_MATERIAL.put(0, Material.MUSIC_DISC_11);
@@ -58,9 +65,10 @@ public class DiscContainer {
 		DISC_MATERIAL.put(9, Material.MUSIC_DISC_STRAD);
 		DISC_MATERIAL.put(10, Material.MUSIC_DISC_WAIT);
 		DISC_MATERIAL.put(11, Material.MUSIC_DISC_WARD);
-		if(SpigotVersion.isVersion1_16() || SpigotVersion.isVersion1_17())
-			DISC_MATERIAL.put(12, Material.MUSIC_DISC_PIGSTEP);
-
+		DISC_MATERIAL.put(12, Material.MUSIC_DISC_PIGSTEP);
+		DISC_MATERIAL.put(13, Material.MUSIC_DISC_5);
+		DISC_MATERIAL.put(14, Material.MUSIC_DISC_OTHERSIDE);
+		DISC_MATERIAL.put(15, Material.MUSIC_DISC_RELIC);
 
 		this.title = configDiscData.getName();
 		this.author = configDiscData.getStringData(Path.AUTHOR);
@@ -76,8 +84,7 @@ public class DiscContainer {
 			this.material = disc.getType();
 			final ItemMeta meta = disc.getItemMeta();
 			this.customModelData = meta.getCustomModelData();
-			final ArrayList<String> itemLores = new ArrayList<>(meta.getLore());
-			this.lores = itemLores;
+			this.lores = new ArrayList<>(meta.getLore());
 			final DiscPersistentDataContainer helper = new DiscPersistentDataContainer(meta);
 			this.author = helper.getAuthor();
 			this.namespaceID = helper.getNamespaceID();
@@ -90,7 +97,7 @@ public class DiscContainer {
 	public ItemStack getDiscItem() {
 		final ItemStack disc = new ItemStack(material);
 		final ItemMeta meta = disc.getItemMeta();
-		meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+		meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
 		meta.setCustomModelData(customModelData);
 
 		// Store custom disc data
@@ -112,14 +119,6 @@ public class DiscContainer {
 
 	public String getNamespace() {
 		return namespaceID;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public Material getMaterial() {
-		return material;
 	}
 
 	public boolean canCreeperDrop() {

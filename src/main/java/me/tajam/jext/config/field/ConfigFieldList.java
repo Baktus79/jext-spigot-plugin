@@ -1,13 +1,15 @@
 package me.tajam.jext.config.field;
 
-import java.util.ArrayList;
-
 import org.bukkit.configuration.ConfigurationSection;
+
+import java.util.ArrayList;
 
 public interface ConfigFieldList<T> {
 
-  public String getPath();
-  public ArrayList<T> getData();
-  public void updateData(ConfigurationSection section);
+	String getPath();
+
+	ArrayList<T> getData();
+
+	void updateData(ConfigurationSection section);
 
 }

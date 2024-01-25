@@ -1,38 +1,37 @@
 package me.tajam.jext.config.field;
 
-import java.util.ArrayList;
-
+import me.tajam.jext.Log;
 import org.bukkit.configuration.ConfigurationSection;
 
-import me.tajam.jext.Log;
+import java.util.ArrayList;
 
 public class ConfigFieldListString implements ConfigFieldList<String> {
 
-  private String path;
-  private ArrayList<String> data;
+	private final String path;
+	private ArrayList<String> data;
 
-  public ConfigFieldListString(String path, ArrayList<String> defaultData) {
-    this.path = path;
-    this.data = defaultData;
-  }
+	public ConfigFieldListString(String path, ArrayList<String> defaultData) {
+		this.path = path;
+		this.data = defaultData;
+	}
 
-  @Override
-  public String getPath() {
-    return path;
-  }
+	@Override
+	public String getPath() {
+		return path;
+	}
 
-  @Override
-  public ArrayList<String> getData() {
-    return data;
-  }
+	@Override
+	public ArrayList<String> getData() {
+		return data;
+	}
 
-  @Override
-  public void updateData(ConfigurationSection section) {
-    if (!section.isSet(path)) {
-      new Log().warn().t("\"").o(path).t("\" missing in configuration file, will set to default value.").send();
-      return;
-    }
-    this.data = new ArrayList<String>(section.getStringList(path));
-  }
+	@Override
+	public void updateData(ConfigurationSection section) {
+		if (!section.isSet(path)) {
+			new Log().warn().t("\"").o(path).t("\" missing in configuration file, will set to default value.").send();
+			return;
+		}
+		this.data = new ArrayList<>(section.getStringList(path));
+	}
 
 }

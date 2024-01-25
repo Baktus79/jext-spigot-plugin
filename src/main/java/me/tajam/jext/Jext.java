@@ -1,14 +1,13 @@
 package me.tajam.jext;
 
-import java.io.InvalidClassException;
-
-import org.bukkit.plugin.java.JavaPlugin;
-
 import me.tajam.jext.command.CommandsRegistrant;
 import me.tajam.jext.config.ConfigManager;
 import me.tajam.jext.configuration.ConfigFile;
 import me.tajam.jext.configuration.ConfigYmlvLegacy;
 import me.tajam.jext.listener.ListenersRegistrant;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.InvalidClassException;
 
 public class Jext extends JavaPlugin {
 
@@ -18,10 +17,9 @@ public class Jext extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		try {
-			new SpigotVersion(this);
 			load();
 		} catch (final Exception e) {
-			e.printStackTrace();
+			this.getServer().getLogger().severe(e.getMessage());
 			this.getServer().getPluginManager().disablePlugin(this);
 		}
 		ENABLED_MESSAGE.send();
@@ -50,7 +48,7 @@ public class Jext extends JavaPlugin {
 		try {
 			new ConfigFile(ConfigYmlvLegacy.class, this).load();
 		} catch (final InvalidClassException e) {
-			e.printStackTrace();
+			this.getServer().getLogger().severe(e.getMessage());
 		}
 	}
 
