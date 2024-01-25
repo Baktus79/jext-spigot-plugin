@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 import java.util.*;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("deprecation")
 public class Log {
 
 	private final String title;
@@ -378,8 +378,6 @@ public class Log {
 	/**
 	 * Send the message to the console with parameter
 	 * set to replace the placeholders.
-	 *
-	 * @return void
 	 */
 	public void send(Object... objects) {
 		final Queue<Object> objectQueue = new LinkedList<>(Arrays.asList(objects));
@@ -389,8 +387,6 @@ public class Log {
 	/**
 	 * Send the message to specified target with parameter
 	 * set to replace the placeholders.
-	 *
-	 * @return void
 	 */
 	public void send(CommandSender target, Object... objects) {
 		final Queue<Object> objectQueue = new LinkedList<>(Arrays.asList(objects));
@@ -414,11 +410,11 @@ public class Log {
 	}
 
 	private String constructMessage(Queue<Object> parameters) {
-		String message = "";
+		StringBuilder message = new StringBuilder();
 		for (Token token : tokens) {
-			message += token.toString(parameters);
+			message.append(token.toString(parameters));
 		}
-		return message;
+		return message.toString();
 	}
 
 	private class Token {
