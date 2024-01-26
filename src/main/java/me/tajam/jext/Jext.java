@@ -2,12 +2,8 @@ package me.tajam.jext;
 
 import me.tajam.jext.command.CommandsRegistrant;
 import me.tajam.jext.config.ConfigManager;
-import me.tajam.jext.configuration.ConfigFile;
-import me.tajam.jext.configuration.ConfigYmlvLegacy;
 import me.tajam.jext.listener.ListenersRegistrant;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.InvalidClassException;
 
 public class Jext extends JavaPlugin {
 
@@ -43,13 +39,6 @@ public class Jext extends JavaPlugin {
 
 		// Register listeners
 		ListenersRegistrant.getInstance().registerListeners(this);
-
-		// test
-		try {
-			new ConfigFile(ConfigYmlvLegacy.class, this).load();
-		} catch (final InvalidClassException e) {
-			this.getServer().getLogger().severe(e.getMessage());
-		}
 	}
 
 }

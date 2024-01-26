@@ -27,7 +27,7 @@ public class ConfigFieldListString implements ConfigFieldList<String> {
 
 	@Override
 	public void updateData(ConfigurationSection section) {
-		if (!section.isSet(path)) {
+		if (!section.contains(path)) {
 			new Log().warn().t("\"").o(path).t("\" missing in configuration file, will set to default value.").send();
 			return;
 		}

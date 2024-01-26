@@ -28,7 +28,6 @@ public class ConfigDiscData {
 	private final ConfigFieldListString lores;
 
 	public ConfigDiscData(String name) {
-
 		this.name = name;
 
 		stringMap = new HashMap<>();
@@ -42,24 +41,22 @@ public class ConfigDiscData {
 		booleanMap.put(Path.CREEPER_DROP, new ConfigField<>("creeper-drop", true));
 
 		lores = new ConfigFieldListString("lore", new ArrayList<>());
-
 	}
 
 	public void load(ConfigurationSection section) {
-		ConfigurationSection subsection = section.getConfigurationSection(name);
 		for (Path key : stringMap.keySet()) {
 			ConfigField<String> field = stringMap.get(key);
-			field.updateData(subsection, String.class);
+			field.updateData(section, String.class);
 		}
 		for (Path key : integerMap.keySet()) {
 			ConfigField<Integer> field = integerMap.get(key);
-			field.updateData(subsection, Integer.class);
+			field.updateData(section, Integer.class);
 		}
 		for (Path key : booleanMap.keySet()) {
 			ConfigField<Boolean> field = booleanMap.get(key);
-			field.updateData(subsection, Boolean.class);
+			field.updateData(section, Boolean.class);
 		}
-		lores.updateData(subsection);
+		lores.updateData(section);
 	}
 
 	public String getStringData(Path key) {

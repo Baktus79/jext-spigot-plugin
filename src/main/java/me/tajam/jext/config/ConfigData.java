@@ -6,8 +6,6 @@ import java.util.HashMap;
 
 public final class ConfigData {
 
-	public static final String PATH = "jext";
-
 	public static class BooleanData {
 
 		public enum Path {
