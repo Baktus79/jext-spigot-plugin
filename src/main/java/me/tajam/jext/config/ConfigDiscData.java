@@ -27,8 +27,8 @@ public class ConfigDiscData {
 	private final HashMap<Path, ConfigField<Boolean>> booleanMap;
 	private final ConfigFieldListString lores;
 
-	public ConfigDiscData(String name) {
-		this.name = name;
+	public ConfigDiscData(ConfigurationSection section) {
+		this.name = section.getString("title");
 
 		stringMap = new HashMap<>();
 		stringMap.put(Path.NAMESPACE, new ConfigField<>("namespace", "music_disc.cat"));

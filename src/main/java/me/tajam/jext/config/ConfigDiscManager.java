@@ -30,7 +30,7 @@ public class ConfigDiscManager {
 		final Set<String> keys = section.getKeys(false);
 
 		for (String key : keys) {
-			ConfigDiscData discData = new ConfigDiscData(PATH + "." + key);
+			ConfigDiscData discData = new ConfigDiscData(section.getConfigurationSection(key));
 			discData.load(section.getConfigurationSection(key));
 			discMap.put(discData.getStringData(ConfigDiscData.Path.NAMESPACE), discData);
 		}
